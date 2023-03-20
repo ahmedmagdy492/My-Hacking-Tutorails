@@ -1,0 +1,29 @@
+Practical Ethical Hacking: https://davidbombal.wiki/tcmpeh
+
+Windows Privilege Escalation for Beginners: https://davidbombal.wiki/tcmwpe
+
+Linux Privilege Escalation for Beginners: https://davidbombal.wiki/tcmlpe
+
+Open-Source Intelligence (OSINT) Fundamentals: https://davidbombal.wiki/tcmosint
+
+The External Pentest Playbook: https://davidbombal.wiki/tcmepp
+
+Movement, Pivoting, and Persistence: https://davidbombal.wiki/tcmmpp
+
+Python 101 for Hackers: https://davidbombal.wiki/tcmpython
+
+Linux 101: https://davidbombal.wiki/tcmlinux
+
+Practical Malware Analysis & Triage: https://davidbombal.wiki/tcmmalware
+
+Mobile Application Penetration Testing: https://davidbombal.wiki/tcmmobile
+
+Python 201 for Hackers: https://davidbombal.wiki/tcmpython201
+
+Practical Web Application Security & Testing: https://davidbombal.wiki/tcmweb
+
+Practical Windows Forensics: https://davidbombal.wiki/tcmwinforensics
+
+GRC Analyst Master Class: https://davidbombal.wiki/tcmgrc
+
+creating your own malware: https://www.udemy.com/course/build-undetectable-malware-using-c-language-ethical-hacking/
