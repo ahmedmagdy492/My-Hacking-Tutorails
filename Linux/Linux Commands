@@ -1,0 +1,114 @@
+cd - : changes the directory to the last working directory.
+cd: with out any parameters will take you to your home directory.
+-tty: allows you to know what tty you are currently in.
+-chvt <tty-no>: is used to change the current tty you are in.
+-su - <username>: is used to switch from one user to another.
+logout, exit or Ctrl+d: to logout
+-reboot, shutdown -r now, systemctl reboot, init 6: used to reboot the machine.
+-init 0, shutdown -h now, systemctl poweroff, poweroff: used to shutdown the machine.
+-tee: can be used with pipe and redirection and it allows you to print the result to the output and to redirect it as well, we can use the -a option with tee to append to the file
+-last: gives a brief information about the last logins on the system
+-lastlog: shows you a brief information about all users and whether they logged in before or not.
+NOTE: all the information reterived by last and lastlog commands are read from the file "/var/log/wtmp"
+-export ENV_VAR_NAME: used to edit env variables
+-vim -O filename1 filename2: open vim in switch mode and you can switch between the 2 windows using Ctrl+W
+
+Shortcuts:
+Ctrl+a: takes you to the begining of the line
+Ctrl+e: takes you to the end of the line
+Ctrl+s: locks the screen.
+Ctrl+k: unlocks the screen.
+Ctrl+k: if you are in the middle and want to remove all the characters behind you then that option is the way to go
+shift+pg-up: if you are on the tty and want to scroll up
+
+
+User and Groups Commands:
+-useradd <username>: to create a new user on the system.
+-userdel <username>
+-usermod -aG <groupname> <username>: add user to a secondary group
+-groupadd <groupname>
+NOTE: all users info are stored in a file in /etc/passwd
+NOTE: all group info are stored in a file in /etc/group
+-usermod -g <groupname> <username>: to change the primary group of a user
+-usermod -G <groupname> <username>: only without -a is going to remove the user from all of the secondary groups and add it to the new one.
+NOTE: groups also can have passwords and the password are hashed and stored in a file called /etc/gshadow
+NOTE: a group can have a group admin
+userdel -r <username>: to delete a user with his home directory.
+chsh: to change the default shell of a user
+
+
+Programmers Commands:
+dmesg: to print what's in the ring buffer
+ulimit -c unlimited: will make the system dump elf file that represent the program in the crashed state.
+gdb <elf program> <core dumped program>: to analyze what went wrong in the program.
+
+
+Permissions Commands:
+chmod <character of the user><+,-><r,w,x> <filename>: used to add or remove permissions on a file to a certain type of user (i.e owner, group of the owner, others)
+NOTE: to apply permissions to a folder with the files inside it use the option -R with it.
+
+NOTE: x permission on a directory means using cd into that directory or the user will be able to use ls -l.
+
+chown <newusername> <filename,dirname>: changes the ownership of that file or directory.
+chown <username>:<groupname> <filename>: changes the ownership of that file for the user and the group.
+
+
+Searching in Strings:
+grep <text-toSearchfor> [<file-name>]: searches for a given text in a given file
+options:
+-i: ignore case sensivity
+-E: used to provide regex
+-r: searches recursivly for the given string
+
+WH Commands:
+w: shows general information about the machine such as who is logged in, the opened sessions, how much time has the system been up.
+who: tells who is currently logged in, NOTE: if you found in the output of this command :0 that means that this session is connected directly from the monitor.
+whoami: shows the name of the current logged in user.
+whatis <command-name>: shows what a command does.
+whereis <command-name>: tells you where the binary of a given command is located.
+
+
+Storage Commands:
+ls -i: to show the inode numbers of each file
+df: prints all the partitions that you currently have on your system (short for disk freespace)
+df -h: prints all the partitions in human readable format.
+fdisk -l: lists all of the disks that you have connected into your computer
+NOTE: disk label type in the output of the fdisk -l command is used to indicate the type of boot sector used if you found it dos that means that it uses MBR.
+fdisk <disk-name>: is used to create partitons to a given disk.
+fdisk -l <disk-name>: print the information about the given disk
+partprobe <disk-name>: to force the kernel to re-read the partition table since you have modified the already existing information in the partition table since the kernel reads the partition table when it first boots.
+mkfs.<file-system-name> <partiton-name>: to create a file system
+dd (disk dump): is used to dump some data from a source to another source for example to overwrite on the partition table on a disk we can do the following:
+"dd if=/dev/random of=/dev/sdb bs=1b count=64"
+dumpe2fs <partition name>: show all info about the partition (works only with extN file systems).
+e2fsck <partition-name>: used to check the disk and used when you were writing to disk and the operation was interuppted for example because electricity went off (the partition should not be mounted) internaly it simply checks if there are any problems with the inode table itself or not if there are problems it will stop and you have to use it again and use the option -f then it will prompt you when it finds a problem and ask you if you want to it to correct it if you say yes it will simply correct it using the inode table backups stored somewhere else on the disk.
+NOTE: before performing any checks on disk it's better to take a backup from the partition and you can do that by simply using the dd command.
+lsblk -f: to show the partitions list along with their file systems.
+
+Links:
+ln <target> <output-filename>: creates a hard link from the target file
+ln -s <target> <output-filename>: creates a soft link from the target file
+
+
+Mounting:
+mount -t <type (file-system-type)> <dev> <mount-point>: to mount a device to a specific folder on the system.
+example: mount -t xfs /dev/sdb1 /media
+umount <dev> or <mount-point>: to unmount a specific device or a specific mount point.
+blkid: will show you all of the partitions you have on your system and their UUID these UUIDs are created automatically when you format your partition you can use this UUID to mount your partitions instead of names to avoid boot breaking if the name has changed for any reason such as plugining in your disk in a different slot, example:
+mount UUID=<uuid> <mount-point>
+-another way to solve the issue of changing the names of the devices is to use labels by using the following command:
+e2label <dev> <label>.
+NOTE: the UUID is the preferred way.
+mount -a: use to check for any errors in the fstab file.
+cfdisk <disk-name>: is another utility to use when dealing with partitioning and formating, etc ...
+
+Encryption Util:
+import keys:
+gpg --import private-key
+gpg --import public-key
+
+gpg filename: to decrypt a file
+extract-firmware.sh filename: to extract filesystem from a firmware binary file
+
+General Commands:
+meld file1 file2: is a tool that allows you compare changes between files

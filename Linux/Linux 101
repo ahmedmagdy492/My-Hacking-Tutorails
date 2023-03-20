@@ -1,0 +1,254 @@
+your server can be access in many forms one of which is by GUI another one is by using CLI
+but some servers have non of these but they have something called "tty" which stands for "TeleTYpe Terminal"
+
+Basic Commands:
+-normally in most linux distrubitions that includes a gui it's using tty1 and in general you have mulitple ttys available for use to perform multi-tasks, to navigate from tty1 to any other tty you can do that using the shortcut "alt+ctrl+Fn" where n denotes the tty number.
+
+-tty: allows you to know what tty you are currently in.
+-chvt <tty-no>: is used to change the current tty you are in.
+-su - <username>: is used to switch from one user to another.
+
+Users:
+normally there are 2 types of users 1.root which has the id of 0. 2.normal users which from rhel 7 and above has id starting from 1000.
+the in-between are services users and almost all of them has no login.
+the reason why these users are exist is because in case of any comprimise happend to the service the attacker has no privilage on the system.
+-all users basic info are stored in a file located in /etc/passwd.
+
+Linux File System:
+the root drive on linux is / (also called the root file system)
+
+folders on linux under /:
+home: contains all the home directories of all users on the system exepct for the root.
+etc: contains all the configuration related to your machine for example when an IP is assigned to your machine that IP is stored in a file under /etc.
+dev: contains all device files (in linux everything including devices such as screen, disk are represented as a file)
+tmp: contains temp files will automatically be cleaned by a clean up service
+usr: has all shared files between all users on the system such as fonts
+bin: contains all binaries that normal users can execute
+sbin: contains all admin and root binaries.
+var: contains all of the files that is constantly changing such as logs and database files
+root: the home dir of the root user
+proc: all the collected info or data that the kernel has collected about your pc is stored here such as cpuinfo (also called virtual file system)
+opt: contains files and dirs related to installed 3rd-party softwares.
+srv: if you want to install some type of service and want to store its files seperately a good place would /srv.
+media: if you plugged in a usb, the system will automatically mount it on /media
+mnt: to access floppy disks.
+boot: contains the kernel and the bootloader
+
+
+NOTE: linux is case-sensitive
+
+Ring Buffer: is a buffer that records some operations and has a default constant size you can take a look at it using the utility dmesg
+
+General Form of any Command:
+command [options] [arguments]
+NOTE: square brackets here means optional
+
+
+Users and Groups:
+-whenever you create a new user a group with the same name as the user is created and it's the primary group of that user and that user is a member of it and is called the user private group.
+-one user can be a member of multiple groups but the user should only has one primary group.
+-by default created users are not active so you have to activiate it manually by setting a password to it.
+
+Permissions:
+any file can be read, written to and executed, and there are 3 types of users first the owner then the group of the owner and the member of that group and finally any other type of users
+each type of user can do on the file one of the following operations:
+owner: read, write, execute
+group of the owner: read, write, execute
+other: read, write, execute
+
+so if we combine the operations that each type of the user can do you would have 9 bits to represent who can do what on that file and the 10th bit represents the file type.
+
+File types:
+1."-" -> means a normal file
+2."d" -> directory
+3."b" -> block device
+4."c" -> character device
+5."l" -> link file
+
+if you use the "ls" command with the option "-l" you will see the permissions discussed above and at the end you will see a dot "." after file permissions this dot indicates that this file is protected by selinux, then there is a number in the output also, that number represents the count of links to that file.
+
+-NOTE: another easy way to change the permission to more than one category at a time is to use the following way: chmod ug=rw,o=r <filename>, this way is called setting permissions.
+
+this way of viewing and dealing with permissions on files is called "Symbolic method"
+
+Numeric Method:
+another way to change the permissions of a file or a directory on the file system.
+in this method each permission has a number associated with it:
+r -> 4
+w -> 2
+x -> 1
+
+
+
+Redirection:
+redirecting either output or error to a file instead of the screen. each one has a number:
+input -> 0
+output -> 1
+error -> 2
+these are called descriptors
+the symbol < is used with input
+the symbol > is used with error and output:
+ output: 1>
+ error: 2>
+
+the general form is as follows:
+cat /var/logs/$APACHE/access.log | grep -Ei '[0-9]{1, 3}\.[0-9]{1,3}\.[0-9]{1, 3}\.[0-9]{1,3}' 1> ips
+
+we can redirect the output to a file and the error to another file
+cat /var/logs/$APACHE/access.log 2>> error.txt | grep -Ei '[0-9]{1, 3}\.[0-9]{1,3}\.[0-9]{1, 3}\.[0-9]{1,3}' 1> ips 2> error.txt
+
+single angle bracket > means overwrite
+double angle bracket >> means append
+
+we can use << with input to make the command take input from keyboard for example:
+cat <<eot>> file2: means take the input from the keyboard and stop when you encounter the word "eot" and append the output to file2.
+
+we can do the same thing but we can make the command read from another file like so:
+cat <file2>> error.txt
+
+NOTE:
+use &> to redirect error and output together
+
+Piping:
+takes the output from one command and pass it as an input to another command denoted by |
+
+NOTE:
+if you are logged in from ssh, telnet or the terminal app on GUI this session is called PTS which stands for psuedo terminal screen (terminal emulator)
+
+
+Storage and File systems:
+when you buy a new disk it will have no partitions and no data at all on it so it's called raw space.
+
+after partitioning your hard disk a few mbs in the begining are allocated for something called mbr "Master boot record" (mbr is not the only way to manage the disk (gbt)) which contains all the information the operating system needs in order for it to know where is the begining and ending of each partition and what are files that are stored there.
+
+MBR:
+consists of 3 parts:
+-partition table 64 bytes: defines where each partition starts and ends.
+each partition has something called a file system
+File System: is a way to organize files and it defines how to write and read them on to/from disk.
+examples on common file systems: FAT32, NTFS, EXT4, EXT3, EXT2, XFS, BTRFS, ZFS
+-boot loader: 446 bytes
+-magic number: 2 bytes: is a checksum that is used for data recovery
+
+-Every partition has to store its inode table in the begining of that partition allocated space
+-the hard drive itself is divided into a lot of small blocks each one has a name or an address you can say the address is called the inode the block size is determined by the file system.
+
+INODE Table:
+is a table that stores info about each file in that partition and where it's stored on disk (it stores metadata about the files in that partiiton).
+
+NOTE: Folder does not contain any files. but folder is a special file that points on other files.
+
+if we take a look at a record from the inode table of a file it would look like that:
+-the inode number of the starting block that contains the begining of that file
+-the permissions of that file
+-owner
+-access time
+-creation time
+-modification time
+-link count
+
+a directory will have also a simliar record but it would have another addtional record that contains the inodes of the files that that directory points to.
+
+NOTE: inode table records does not store file names or directory names.
+NOTE: the block size changes depending on the need or the type of files that will be stored on that partition and if a block size is so small to fit a single file that file will be stored in multiple blocks but the first one is the one that is saved in the inode table record and if the file size is not totally aligned or in other words it does not take the whole set of blocks say for example 3 blocks and a half that half is of course wasted and that leads to the concept of file size and file size on disk, the actual file size has nothing to do with the file size on disk.
+one more thing here on this point is that if we are writing on the same partition at the same time that could lead to the problem of fragementation which simply means multiple files is stored on overlapped blocks for example:
+say we have file1 starts at block 1 and file2 starts at block3 and let's say that file one need to 5 blocks to be fully stored on disk so that means that they will look like that
+
+file1: 123 file2:4567 file1: 89
+and that means the seek time will be increased hence read time and write time will be increased hence the disk will be slow.(seek time here is the time taken by the needle to access one part of the disk physically)
+that what happens by default on windows but on linux the scenario is a little bit different.
+
+How linux writes files to disk and avoids fragementation:
+when you copy or move a file, first the kernel writes the file to temp area called the journal and after it finshes it moves it to the original destination.
+
+What happens when copying from a partition to the same partition:
+-it gets the data and copied to the new place and then reserve a new record in the inode table
+NOTE: the same happens when you copy from one file system to another file system or moving from one file system to another file system but the difference with the move is that after all the steps above are done it will simply delete that inode from the inode table or flag it as unused.
+
+What happens when you move a file from one partition to the same partition:
+-it simply makes the new directory points to that inode number
+
+
+Soft Links and Hard links:
+soft links: simply creates a new reference to the same file without using a new inode number or creating a new a inode record and without copying the actual data blocks to the new location.
+NOTE: the soft link points to the file name not the file inode number which means that if the file name has changed the soft link is no longer valid.
+NOTE: the soft link itself as a file it reservers only one inode number.
+NOTE: we can create soft links to other files that are not stored on the same file system.
+
+hard links: a reference on the inode number itself.
+which means that if the file is deleted it does not matter there exist another reference on that inode number.
+NOTE: hard links cannot be created on files that are not exist on the same file system.
+
+In MBR:
+-the reserved space at the begining of the disk is simply 512 bytes and the partition table itself is 64 bytes in size and each partition can only have 16 bytes in size which means at most you can only have 4 primary partitions.
+-to solve this issue they come up with the idea of the extended partition in which we can divide that partition into logical partitoins.
+-the extended partition will have it's own like partition table and it's the only one who knows about the logical partitions.
+-logical partitions get their counts always starting from 5
+-the first 4 partitions are always reserved.
+
+Disk Types:
+PATA(IDE), SATA, SCSI, SAS, SSD, FLASH Usb
+
+NOTE: inode table sometimes is called the super block
+NOTE: when you format your partition the program that formats the partition create a backup of the superblock (inode table) in different areas on that partition in case a failure or something wrong has happend to the actual super block.
+NOTE: each partition has a type that type is described using a system id
+
+NOTE: when using /dev/random as an input file to write data to some disk or to provide as input to a program you have to be careful cause /dev/random writes random characters with different charsets (i.e ansi, utf-8, etc ...) which means each character will be of different size so /dev/random may produce 100M of characters but when stored somewhere that supports only Ansi the size will be less than 100M cause it will treat all characters as if they were 1 byte each which means that output at the end likely is less in size. to avoid this problem you can use /dev/zero instead of /dev/random and /dev/urandom. by the way formatting a disk is equavliant to writing bytes from /dev/zero with the size of the disk to that disk.
+
+Mounting:
+is the operation that will allow you to access a specific part from your disk
+NOTE: if you mount a partition to a folder and then mount another partition to the same folder what will happen is the last mounted partition will be available on the other partition will be on hold until you unmount the last one and then the first mounted partition will available
+
+
+IPC:
+techinques:
+1.Unix Domain Sockets:
+is a way to allow processes on the same machine to communicate with each other.
+-Message Types:
+1.CIR (Connection Initiation Request): is a message that is sent by the client to ask the server to accept the client connection
+2.SRM (Service Request Message): can only be sent when the connection between the client and the server has already been established and can be any type of data.
+
+Server Process:
+when the server boots up it first creates a socket using the socket sys call and sys call creates a master file descriptor which is used afterwards by the os to forward incoming connections to that file descriptor. when the server receives a connectoin request from a client a handle is created for that client which is just simply a represtnation of the client to allow the server to communicate with that client and they are called sometimes data sockets.
+NOTE: Master file descriptor is not used for data exchange.
+NOTE: accept sys call is used only the connection is a connection oriented communication.
+
+Types of connections:
+1.oriented connection communication (Stream):
+is used for moving large data such as files from one location to another
+2.connection less communication (Datagram): is used to move small amount of data between the client and the server.
+
+NOTE: Unix Sockets uses name and family to identify the socket.
+
+Auto Mounting:
+there is a configuration file called /etc/fstab (short for file system table) which contains the info about the file systems that will be automatically mounted once the os is up.
+the structure of the file is as follows:
+device(can be uuid) "mount point"  type  "mount options"     "dump order"  fs check order
+                                         rw,ro,noexec,exec       0..9        0..9
+
+Mount Options:
+rw: this device can be read from it and written to it
+ro: this device can be readonly.
+exec: you can run programs or binary files stored on that device
+no-exec: the opposite of exec
+
+FS Check Order:
+will tell the os which partition to start the file system check on when a force reboot occurs
+0: means no check at all
+1..9: the order of the parition on the fs check
+
+Dump Order:
+will tell the os in which order to take dump (backup) from the partition
+0: means do not take any dump at all
+1-9: the order of the dump
+
+NOTE: if you lazy about writing and memorizing the syntax of fstab file you can use a file called /etc/mtab and the last line in that file is the last mounted fs.
+
+NOTE: /etc/mtab file contains the currently mounted file systems.
+NOTE: if you want to delete a partition make sure first that that partition is not exist in the fstab file.
+
+in linux the processor can be in one of the 3 states:
+1.In user-space, executing user code in a process
+2.In kernel-space, in process context, executing on behalf of a specific process
+3.In kernel-space, in interrupt context, not associated with a process, handling an
+interrupt

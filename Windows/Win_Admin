@@ -1,0 +1,70 @@
+Powershell:
+Environment Variables:
+-$env:COMSPEC: contains the path of cmd
+
+CMD:
+-%COMSPEC%: contains the path of cmd
+-set: you can use it to display all environment variables
+NOTE: if you changed the value of the COMSPEC environment variable any other command that depends on that variable will also be affected
+for example let's change it to calc.exe then try for example the following command:
+echo "hello, world" | clip
+what you will notice is that calc.exe has been executed.
+-start <process-name>: starts a process
+example:
+  start iexplore -> starts windows explorer
+  another living off land binary execuation if you try to execute the following: 
+  start iexplore shell:::{3f6bc534-dfa1-4ab4-ae54-ef25a74e0107}
+  it will popup system restore if you have control over the environment variable "SYSTEMROOT" you can go ahead and execute what ever binary you want.
+NOTE: we can use shell:::<name-of-app> or shell:::<cls-id> to fire up an app or open up a location and here is the complete list of them:
+https://winaero.com/windows--11-shell-commands-the-complete-list/
+
+Execlude a path from scanning:
+Set-MpPreference -ExclusionPath <path>
+
+Format disk using disk part:
+list disk
+select disk <disk-number>
+list partition
+create primary partition
+clean: to clean disk or patition
+format fs=<file-system-name>
+
+list volume
+select volume <vol-number>
+convert <mbr,gbt,...>: to convert to another format of a partition table
+
+active: will the current selected partition as the active (or primary partition)
+
+Command Line Regestery:
+reg <operation> "reg key": to deal with registery
+
+Schedule Tasks using cmd:
+schtasks /create /tn "T1053_005_OnLogon" /sc onlogon /tr "cmd.exe /c calc.exe"
+
+Windows Internals:
+
+What is a process:
+a process is a virtualized container that is totally isolated from the os and any other app, it has:
+-memory
+-security
+-threads
+-ipc: which is the rules that tells the process how to communicate with other processes and with the os
+
+NOTE: everything nowadays runs in a process including apps and services except the operating system.
+
+NOTE: if you have windows native build tools you can use the dumpbin tool to see all of the imports of an executable
+
+NOTE: in windows in general you can mark a file as locked so that no one else can access or do anything to that file until it's unlocked
+
+-subst path-to-mount new-drive-letter: to mount a folder or a drive to a custom endpoint
+
+
+Bybass Windows Login:
+1.usb that has a valid windows installation
+2.boot from usb
+3.open command prompt and execute "wmic logicaldisk get name"
+4.head over to the windows drive within the sys32 dir locate utilman.exe
+- the key here is to execute another exe other than the original one
+5.rename the filename and copy cmd for example to this directory with the name of the original tool
+6.go back to windows login screen and press acessablitly button
+7.cmd will launch then you can now change the password of that user by using the following command "net user <username> <new-password>"
