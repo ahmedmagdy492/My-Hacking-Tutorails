@@ -1,0 +1,14 @@
+Bad Code:
+-bad code sometimes is produced out of the rush to push the product to market.
+-when code gets out of control then we reached the end of life for this project and that code has a name which is "wading".
+
+Signs to bad code:
+-making a change in one place will effect multiple other places.
+-doing a thing that should take hours takes days to be done.
+
+Inventor of c++ opnion of what is clean code:
+the code should be elegant and effcient
+straightforward to make it hard for bugs to hide
+minimal dependicies to ease maintance
+complete error handling
+clean code does one thing well
