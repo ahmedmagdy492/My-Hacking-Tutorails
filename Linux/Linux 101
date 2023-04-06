@@ -252,3 +252,16 @@ in linux the processor can be in one of the 3 states:
 2.In kernel-space, in process context, executing on behalf of a specific process
 3.In kernel-space, in interrupt context, not associated with a process, handling an
 interrupt
+
+Compressing and Archiving:
+gzip and bzip2 are the most well-known utilities used to compress files.
+Differences between the 2:
+gzip: faster than bzip2
+bzip2: has higher compression ratio.
+
+NOTE: video and audio file does not go through the same compression process as the normal text files.
+
+Archiving: is the operation that takes a set of files and crunches them together to produce one file.
+to archive a folder we can use the utiltity called tar
+
+we can use gzip or bzip2 to compress the files while archiving them

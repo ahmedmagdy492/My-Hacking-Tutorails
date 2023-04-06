@@ -112,3 +112,14 @@ extract-firmware.sh filename: to extract filesystem from a firmware binary file
 
 General Commands:
 meld file1 file2: is a tool that allows you compare changes between files
+
+Compressing and Archiving Commands:
+gzip <filepath>: used to compress a file
+bzip2 <filepath>: used to compress a file
+gunzip <filepath>: to decompress a file
+bunzip2 <filepath>: to unzip a file using bzip2
+tar cvf <output-file> <source-file>: to archive a folder
+tar xvf <archive>: to extract an archive
+tar cvfz <out-file> <source-file>: used to compress and archive a directory using gzip
+tar cvfj <out-file> <source-file>: used to compress and archive a directory using bzip2
+tar tvfz <filename>: is used to list the files that are exist within the archive

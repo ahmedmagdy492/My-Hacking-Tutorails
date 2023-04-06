@@ -68,3 +68,16 @@ Bybass Windows Login:
 5.rename the filename and copy cmd for example to this directory with the name of the original tool
 6.go back to windows login screen and press acessablitly button
 7.cmd will launch then you can now change the password of that user by using the following command "net user <username> <new-password>"
+
+Common and Important Commands:
+copy /b imagename+filename newfilename: is used to hide a file within an image
+cipher /E: will encrypt all the files within the current folder and no one else but me can open them.
+attrib +h +s +r nameofthefile: to hide a file and to show do - instead of +
+netsh wlan show profile "network name" key=clear: shows all the info (include passwords) of wifi networks that you have connected to.
+color {foreground,background} colors
+prompt {text}: to change the prompt text
+title "text": to change the title of the cmd
+curl wttr.in "city name": to get the weather
+curl --head --location "url" | findstr "Location": to unshorten your shorten links
+curl qrenco.de/<websiteurl>: to create a url to your website
+curl -s https://decapi.me/youtube/latest_video?user=<nameofytchannel>
