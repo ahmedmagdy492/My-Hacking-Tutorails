@@ -123,3 +123,30 @@ tar xvf <archive>: to extract an archive
 tar cvfz <out-file> <source-file>: used to compress and archive a directory using gzip
 tar cvfj <out-file> <source-file>: used to compress and archive a directory using bzip2
 tar tvfz <filename>: is used to list the files that are exist within the archive
+
+Process Management Commands:
+ps aux: to show all process and services that running on all consoles with the details of each process.
+kill <pid>: used to kill any process that is not running in the background. or to be more precise it sends a signal to the process
+kill -l: to list all of the signals available to be sent to the process.
+NOTE: the default value for the position argument of the kill program is 15(SIGTERM)
+
+to send a specific type of signal to the process use the following syntax:
+kill -<sig-number> <pid>
+
+ps -ef: is used to show processes info along with the parent process id
+pstree: will print the processes in a form of a tree.
+pgrep <process-name>: gets the pid of a given process name
+pkill <process-name>: kills a process by name.
+fg %<process-no-in-bg>: used to bring a background process to run in the foreground instead of the background.
+top: shows the current running processes in a nice view and in real time.
+nice -<nice-value> <process-name> or nice -n <nice-value> <process-name>: is used to change the nice value of a process
+ps -eo "%<name of column to display>": used to show the current processes in a nice and cusomtizable way.
+renice -n <nice-value> <pid>: is used to change the priority of a running process.
+Ctrl+z: sends a SIGINT to a process
+
+For Hacking:
+fcrackzip -u -D -p <word-list-path>: used to crack a zip file
+showmount -e <ip>: shows the files that could be mounted through a file share
+ssh -i <id-file> <username>@<ip>:[port]: to connect via an identity file that contains the private key
+sudo -l: will print out the commands that you can run without needing a password
+dnsrecon -n <ip> -d <domain> -r <127.0.0.1/24>: to enumerate various record in a dns server.

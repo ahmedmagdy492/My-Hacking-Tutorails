@@ -265,3 +265,36 @@ Archiving: is the operation that takes a set of files and crunches them together
 to archive a folder we can use the utiltity called tar
 
 we can use gzip or bzip2 to compress the files while archiving them
+
+Process Management:
+Process: a process is a running program or a program in memory
+-every and each process on the system has a process id
+-and every process has a parent process except the first process that ran on the system
+-so that every process has a pid and ppid.
+
+When a process creates a child process it does something called copy on write which means that the parent process will allocate memory for the child process with a size that is equavliant to the size it has allocated for itself in the begining and then allocate more for the new child process if needed.
+
+when a memory is allocated for a process the memory allocated is divided into pages.
+
+shared library: linux and most modern operating system use this idea to save reduandant memory allocation for each process by allocating memory and loading some common libraries in one shared place in memory and every other process that needs or uses functions from these libs gets a reference to the address that has that code.
+
+the first process that runs on almost linux systems is called systemd and has a pid of 1 and has no parent process.
+
+NOTE: if in the tty column you found the "?" sympol that means that the process is running in the background.
+
+NOTE: if the process is launched from say for example the terminal and then the parent is terminated then the parent becomes now systemd. this happens as long as it's running in the background as a deamon.
+
+Process Priority:
+there is something called "nice value" that will control the priorty of a running process
+possible values ranges from -20 to 19
+default value: 0  ->  Normal Priority
+highest priority: -20
+lowest priority: 19
+
+NOTE: any user can give the processes that he owns a lower priority but not a higher priority.
+
+NOTE: a zombie process is a process that is not either running or sleeping but take time on the cpu. and it indicates the there is a problem on the system.
+
+Processes Statuses:
+Ss: start to sleeping
+
