@@ -150,3 +150,5 @@ showmount -e <ip>: shows the files that could be mounted through a file share
 ssh -i <id-file> <username>@<ip>:[port]: to connect via an identity file that contains the private key
 sudo -l: will print out the commands that you can run without needing a password
 dnsrecon -n <ip> -d <domain> -r <127.0.0.1/24>: to enumerate various record in a dns server.
+ldd <filename>: to see what shared and static libs are used by a specific executable
+objdump -p <filename> | grep "NEEDED"
