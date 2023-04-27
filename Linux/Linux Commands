@@ -144,6 +144,12 @@ ps -eo "%<name of column to display>": used to show the current processes in a n
 renice -n <nice-value> <pid>: is used to change the priority of a running process.
 Ctrl+z: sends a SIGINT to a process
 
+
+Searching files:
+locate <file-name>: searches in a database for that file and if you just created that file you have to update the database first using the command: updatedb in order to tell the system explicitly to update its database of files
+find <folder-to-search-in> -[attribute] <value>: searches the filesystem in real time and does not depend on a database
+
+
 For Hacking:
 fcrackzip -u -D -p <word-list-path>: used to crack a zip file
 showmount -e <ip>: shows the files that could be mounted through a file share
@@ -152,3 +158,4 @@ sudo -l: will print out the commands that you can run without needing a password
 dnsrecon -n <ip> -d <domain> -r <127.0.0.1/24>: to enumerate various record in a dns server.
 ldd <filename>: to see what shared and static libs are used by a specific executable
 objdump -p <filename> | grep "NEEDED"
+checksec <exectuable-file>: used to check what protection machnisms are being used by this program

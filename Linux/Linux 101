@@ -298,3 +298,9 @@ NOTE: a zombie process is a process that is not either running or sleeping but t
 Processes Statuses:
 Ss: start to sleeping
 
+Searching files:
+you can use one of the following utilties locate which depends on a database which needs you to run updatedb whenever you create a new file and find which does a real-time filesystem search.
+
+find:
+with find you can do an advanced search such as search by name, file owner, permissions and more. here are a few examples:
+- find /etc/ -iname network
