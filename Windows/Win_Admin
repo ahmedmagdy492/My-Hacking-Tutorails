@@ -81,3 +81,9 @@ curl wttr.in "city name": to get the weather
 curl --head --location "url" | findstr "Location": to unshorten your shorten links
 curl qrenco.de/<websiteurl>: to create a url to your website
 curl -s https://decapi.me/youtube/latest_video?user=<nameofytchannel>
+
+
+
+Bypass cmd is disabled by your admin:
+1.create a batch script that opens cmd in an infinite loop and run it
+2.using ftp command and execute any command preceded by !

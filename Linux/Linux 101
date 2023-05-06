@@ -304,3 +304,6 @@ you can use one of the following utilties locate which depends on a database whi
 find:
 with find you can do an advanced search such as search by name, file owner, permissions and more. here are a few examples:
 - find /etc/ -iname network
+you can execute a command on the result of the find command:
+find /etc/ -iname network -exec cp {} /work \;
+{} -> means the output
