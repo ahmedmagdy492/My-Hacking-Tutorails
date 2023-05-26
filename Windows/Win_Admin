@@ -18,6 +18,8 @@ example:
 NOTE: we can use shell:::<name-of-app> or shell:::<cls-id> to fire up an app or open up a location and here is the complete list of them:
 https://winaero.com/windows--11-shell-commands-the-complete-list/
 
+fsutil fsinfo ntfsinfo <partition-label>: to know some info such as sector size of the current partition
+
 Execlude a path from scanning:
 Set-MpPreference -ExclusionPath <path>
 
@@ -83,7 +85,15 @@ curl qrenco.de/<websiteurl>: to create a url to your website
 curl -s https://decapi.me/youtube/latest_video?user=<nameofytchannel>
 
 
-
 Bypass cmd is disabled by your admin:
 1.create a batch script that opens cmd in an infinite loop and run it
 2.using ftp command and execute any command preceded by !
+
+OPEN CMD as NT System User:
+psexec -i -s cmd.exe (NOTE: with an admin account)
+
+LOLBin to hide commands:
+reg.exe add "HKLM\System\CurrentControlSet\Control\Terminal Server\Utilities\query" /v LOLBin /t REG_MULTI_SZ /d 0\01\0LOLBin\0calc.exe -> where LOLBin is an alias for the exe calc.exe that can run with the query command
+
+Restart and boot into bios directly:
+-shutdown /r /fw (boot to bios) /t 1

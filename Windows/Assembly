@@ -250,3 +250,6 @@ Stack (grows ↑)
 env pointer
 Argc
 ↓ Higher addresses (0xbfffffff)
+
+VIP NOTE:
+we can understand how assembly work under the hood by compiling a c program that is called rosta stone

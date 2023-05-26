@@ -16,6 +16,8 @@ Linux 101: https://davidbombal.wiki/tcmlinux
 
 Practical Malware Analysis & Triage: https://davidbombal.wiki/tcmmalware
 
+Malware Developement
+
 Mobile Application Penetration Testing: https://davidbombal.wiki/tcmmobile
 
 Python 201 for Hackers: https://davidbombal.wiki/tcmpython201
