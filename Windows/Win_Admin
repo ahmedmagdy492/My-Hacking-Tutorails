@@ -97,3 +97,7 @@ reg.exe add "HKLM\System\CurrentControlSet\Control\Terminal Server\Utilities\que
 
 Restart and boot into bios directly:
 -shutdown /r /fw (boot to bios) /t 1
+
+Useful Tools for enumerating over a windows network that is a domain:
+- powerview -> powershell script to run on the comprimsed computer 
+- bloodhound -> powershell script to run on the comprimsed computer and a tool on the attacker machine and you simply grab the data to the attacker machine so that you can visualize it and know what is your next movement 
