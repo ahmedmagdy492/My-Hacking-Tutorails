@@ -89,6 +89,9 @@ Bypass cmd is disabled by your admin:
 1.create a batch script that opens cmd in an infinite loop and run it
 2.using ftp command and execute any command preceded by !
 
+PSExec:
+is a cmd line utility that allows you to run processes on your machine or on another machine on the network
+
 OPEN CMD as NT System User:
 psexec -i -s cmd.exe (NOTE: with an admin account)
 
@@ -100,4 +103,7 @@ Restart and boot into bios directly:
 
 Useful Tools for enumerating over a windows network that is a domain:
 - powerview -> powershell script to run on the comprimsed computer 
-- bloodhound -> powershell script to run on the comprimsed computer and a tool on the attacker machine and you simply grab the data to the attacker machine so that you can visualize it and know what is your next movement 
+- bloodhound -> powershell script to run on the comprimsed computer and a tool on the attacker machine and you simply grab the data to the attacker machine so that you can visualize it and know what is your next movement
+
+Difference Between ntlm and ntlmv2 protocols:
+-the normal ntlm protocol is 128bit which means 16 bytes written as 32 characters, ntlmv2 on the other hand is also 16 bytes length but is written as 48 hexadecimal string characters.
